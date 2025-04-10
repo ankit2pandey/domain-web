@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 80%;
+        }
+        li {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>donation List</h1>
+    <ul id="taskList">
+        <!-- Task items will be dynamically loaded here -->
+    </ul>
+
+    <script>
+        // Load tasks from LocalStorage
+        window.onload = function() {
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            const taskList = document.getElementById("taskList");
+
+            tasks.forEach(task => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <strong>Name:</strong> ${task.task}<br>
+                    <strong>Description:</strong> ${task.description}<br>
+                    <img src="${task.photo}" alt="Task Photo" />
+                    <a href="index.html" target="_blank"><button id="nextButton">donation</button></a>
+
+                    
+                    
+                `;
+                taskList.appendChild(li);
+            });
+
+            // Display message if no tasks are found
+            if (tasks.length === 0) {
+                const li = document.createElement("li");
+                li.innerHTML = "No tasks available.";
+                taskList.appendChild(li);
+            }
+        };
+    </script>
+     
+    
+</body>
+</html>

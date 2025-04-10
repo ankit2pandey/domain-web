@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background: #ffffff;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Details</h1>
+    <table id="loginTable">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Encrypted Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Login details will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <button onclick="clearLogins()">Clear All Logins</button>
+
+    <script>
+        // Example hashing function (not real encryption for production)
+        function simpleHash(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                hash = (hash << 5) - hash + password.charCodeAt(i);
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            return hash.toString();
+        }
+
+        // Function to load and display login details
+        function loadLogins() {
+            const tableBody = document.querySelector("#loginTable tbody");
+            tableBody.innerHTML = ""; // Clear any existing rows
+
+            // Loop through LocalStorage keys
+            for (let i = 0; i < localStorage.length; i++) {
+                const username = localStorage.key(i); // Get the key (username)
+                const password = localStorage.getItem(username); // Get the value (password)
+
+                // Add username and hashed password to the table
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${username}</td>
+                    <td>${simpleHash(password)}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+
+            // If no login data is found
+            if (tableBody.children.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="2">No login details available</td>`;
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Function to clear all login details
+        function clearLogins() {
+            localStorage.clear(); // Remove all LocalStorage data
+            alert("All login details have been cleared!");
+            loadLogins(); // Reload the table
+        }
+
+        // Load login details when the page is loaded
+        window.onload = loadLogins;
+    </script>
+</body>
+</html>

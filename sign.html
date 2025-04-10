@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            background: #ffffff;
+            padding: 20px;
+            margin: 50px auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+     <script>
+        function signup() {
+            const username = document.getElementById("signup_username").value;
+            const password = document.getElementById("signup_password").value;
+
+            // Save user data to LocalStorage
+            localStorage.setItem(username, password);
+
+            alert("User registered successfully!");
+        }
+    </script>
+
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form onsubmit="signup(); return false;">
+        <label for="signup_username">Username:</label><br>
+        <input type="text" id="signup_username" required><br>
+        <label for="signup_password">Password:</label><br>
+        <input type="password" id="signup_password" required><br>
+        <button type="submit">Sign Up</button>
+        
+
+   
+
+    </form>
+    <button id="nextButton">Login</button>
+    <script>
+        // Attach click event to navigate
+        document.getElementById("nextButton").addEventListener("click", function () {
+            window.location.href = "login.html"; // Specify the path to your next page
+        });
+    </script>
+</body>
+</html>

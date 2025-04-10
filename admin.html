@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+        }
+        .container {
+            margin: 50px auto;
+            width: 300px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <div class="container">
+        <button onclick="goToPage('login-user.html')">View Login Details</button>
+        <button onclick="goToPage('to.html')">View Donation Listing</button>
+        <button onclick="goToPage('add-user-data.html')">View Donation Listing</button>
+    </div>
+
+    <script>
+        // Function to navigate to specified page
+        function goToPage(page) {
+            window.location.href = page; // Redirect to the specified page
+        }
+    </script>
+</body>
+</html>

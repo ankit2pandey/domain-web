@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donation Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fef5e6;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background: #ffffff;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #ffa500;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #cc2e1f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Donation Details</h1>
+    <table id="donationTable">
+        <thead>
+            <tr>
+                <th>Donation Amount</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Donation details will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <button onclick="clearDonations()">Clear All Donations</button>
+
+    <script>
+        // Function to load and display donation details
+        function loadDonations() {
+            const tableBody = document.querySelector("#donationTable tbody");
+            tableBody.innerHTML = ""; // Clear existing data
+
+            // Retrieve data from LocalStorage
+            const donationAmount = localStorage.getItem("DonationAmount");
+            const donationMessage = localStorage.getItem("DonationMessage");
+
+            if (donationAmount && donationMessage) {
+                // Add donation details to the table
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${donationAmount}</td>
+                    <td>${donationMessage}</td>
+                `;
+                tableBody.appendChild(row);
+            } else {
+                // Show a message if no data is available
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td colspan="2">No donations available</td>
+                `;
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Function to clear all donations
+        function clearDonations() {
+            localStorage.removeItem("DonationAmount");
+            localStorage.removeItem("DonationMessage");
+            alert("All donations cleared!");
+            loadDonations();
+        }
+
+        // Load donations when the page loads
+        window.onload = loadDonations;
+    </script>
+</body>
+</html>

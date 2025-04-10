@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        #todoContainer {
+            margin: 50px auto;
+            width: 400px;
+        }
+        input, textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>donation List add</h1>
+    <div id="todoContainer">
+        <input type="text" id="taskInput" placeholder="Add a new name" />
+        <textarea id="descriptionInput" placeholder="Add a description"></textarea>
+        <input type="file" id="photoInput" accept="image/*" />
+        <button onclick="addTask()">Add</button>
+        <button onclick="goToPage()">View List</button>
+    </div>
+
+    <script>
+        // Function to add tasks to LocalStorage
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const descriptionInput = document.getElementById("descriptionInput");
+            const photoInput = document.getElementById("photoInput");
+
+            const taskText = taskInput.value.trim();
+            const descriptionText = descriptionInput.value.trim();
+            const photoFile = photoInput.files[0];
+
+            if (taskText === "" || !photoFile) {
+                alert("Please enter a task and upload a photo.");
+                return;
+            }
+
+            // Convert photo to base64
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const photoData = event.target.result;
+
+                // Save task data to LocalStorage
+                const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+                tasks.push({ task: taskText, description: descriptionText, photo: photoData });
+                localStorage.setItem("tasks", JSON.stringify(tasks));
+
+                // Clear inputs
+                taskInput.value = "";
+                descriptionInput.value = "";
+                photoInput.value = "";
+                alert("Task added successfully!");
+            };
+            reader.readAsDataURL(photoFile);
+        }
+
+        // Function to navigate to the next page
+        function goToPage() {
+            window.location.href = "view-user.html"; // Redirect to the list page
+        }
+    </script>
+</body>
+</html>
